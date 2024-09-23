@@ -1,12 +1,20 @@
 document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('btn_login').addEventListener('click', initiateSpotifyAuth);
+    console.log(1)
+    // Check if the user is already logged in
+    const accessToken = sessionStorage.getItem('access_token');
+    if (accessToken) {
+        // User is logged in, proceed with app logic
+        checkLoginStatus();
+        return; // Exit the function to avoid further checks
+    }
 
     // Check if we are on the redirect URI with an authorization code
     const code = await getAuthorizationCode();
     if (code) {
         await getToken(code);
     }
-    checkLoginStatus();
+    checkLoginStatus(); // Check login status if no code is found
 });
 
 
@@ -87,7 +95,7 @@ const base64encode = (input) => {
 
 // Request User Authorization
 const clientId = '6b28d044e2544b87a3d954a8fe6fdccc';  // Replace with your Spotify app client ID
-const redirectUri = 'http://127.0.0.1:5500/thumbnailGenerator.html';  // Replace with your app's redirect URI
+const redirectUri = 'http://127.0.0.1:5000/thumbnail-generator';  // Replace with your app's redirect URI
 const scope = 'ugc-image-upload playlist-modify-public playlist-modify-private';
 
 const initiateSpotifyAuth = async () => {

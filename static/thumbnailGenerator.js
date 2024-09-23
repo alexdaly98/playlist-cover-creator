@@ -18,7 +18,7 @@ function populatePlaylistData() {
 }
 
 function fetchTracks(playlistId) {
-    fetch(`http://127.0.0.1:5000/tracks/${playlistId}`)
+    fetch(`tracks/${playlistId}`)
         .then(response => response.json())
         .then(tracks => {
             const tracksList = document.getElementById('tracks-list-thumbnail-page');
@@ -112,7 +112,7 @@ function generateThumbnail(creation_method) {
     // ///////////////////////////////////////////////////////  
 
 
-    fetch(`http://127.0.0.1:5000/thumbnail/${creation_method}`, {
+    fetch(`thumbnail/${creation_method}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -147,7 +147,7 @@ function generateThumbnail(creation_method) {
 async function uploadPlaylistImageFromUrl(playlistId, imageUrl, accessToken) {
     document.getElementById('loading_widget_upload').style.display = 'block';
     try {
-        const response = await fetch('http://127.0.0.1:5000/upload-playlist-image', {
+        const response = await fetch('upload-playlist-image', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

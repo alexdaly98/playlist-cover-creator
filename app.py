@@ -1,8 +1,8 @@
 from backend import spotify_api, openai_utils
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
 
-app = Flask(__name__)
+app = Flask(__name__, static_url_path='/static', template_folder='templates')
 CORS(app)
 
 
@@ -55,6 +55,17 @@ def upload_playlist_image():
     else:
         return jsonify({'error': 'Failed to upload image'}), upload_response.status_code
 
+
+
+# Route for the main page
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+# Route for the thumbnail generator
+@app.route('/thumbnail-generator')
+def thumbnail_generator():
+    return render_template('thumbnailGenerator.html')
 
 if __name__ == '__main__':
     app.run(debug=True)

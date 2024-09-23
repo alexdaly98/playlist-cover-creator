@@ -1,7 +1,7 @@
 // Fetch and display the user's playlists based on the entered User ID
 function getPlaylists() {
     const userId = document.getElementById('user_id_input').value;
-    fetch(`http://127.0.0.1:5000/playlists/${userId}`)
+    fetch(`playlists/${userId}`)
         .then(response => response.json())
         .then(playlists => {
             const playlistsList = document.getElementById('playlists_list');
@@ -67,7 +67,7 @@ function getPlaylists() {
 
 // Fetch and display tracks for a specific playlist
 function showTracks(playlistId) {
-    fetch(`http://127.0.0.1:5000/tracks/${playlistId}`)
+    fetch(`tracks/${playlistId}`)
         .then(response => response.json())
         .then(tracks => {
             const playlistDiv = document.querySelector(`.playlist[data-playlist-id='${playlistId}']`);
@@ -107,5 +107,5 @@ function selectPlaylist(playlist) {
     sessionStorage.setItem('selectedPlaylist', JSON.stringify(playlist));
 
     // Redirect to thumbnailGenerator.html
-    window.location.href = 'thumbnailGenerator.html';
+    window.location.href = '/thumbnail-generator';
 }

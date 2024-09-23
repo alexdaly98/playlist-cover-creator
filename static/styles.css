@@ -48,6 +48,7 @@ body {
     margin: 50px;
     border-radius: 12px; /* Slightly more rounded corners for the container */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    min-width: 500px; /* Set a max-width for larger screens */
     max-width: 1000px; /* Set a max-width for larger screens */
     overflow-y: auto; /* Enable scrolling within the container */
     text-align: center; /* Center-align text within the container */
