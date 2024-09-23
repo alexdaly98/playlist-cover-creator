@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playlist Thumbnail Generator</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Generate a Creative Thumbnail</h1>
+        <p>If you want to be able to upload your creation to your Spotify account, you need to log in here first.</p>
+        <div id="login_status">
+            <div class="login-info">
+                <button id="btn_login">Log in to Spotify</button>
+                <div id="user_profile">
+                    <img id="user_image" src="" alt="User Profile Image" style="display:none; width: 50px; height: 50px; border-radius: 50%; margin-left: 10px;">
+                    <p id="user_name" style="margin-left: 10px;"></p>
+                </div>
+            </div>
+        </div>
+        <div id="container-thumbnail">
+            <div class="block1-thumbnail">
+                <h2>Select the tracks you want to use for your creation</h2>
+                <div class="block1-1-thumbnail">
+                    <div>
+                        <div class="playlist-details">
+                            <h2 id="playlist_name">Playlist Name</h2>
+                            <img id="playlist_image" src="" alt="Playlist Image">    
+                            <p id="track_count">0 track(s)</p>
+                        </div>
+                    </div>
+                    <div id="tracks-list-thumbnail-page" class="tracks_list"></div>
+                </div>
+            </div>
+            <br></br>
+            <div class="block1-thumbnail">
+                <h2>How would you like to generate your thumbnail?</h2>
+                <div class="thumbnail-options">
+                    <label>
+                        <input type="radio" name="thumbnailData" value="track_thumbnails">
+                        Fusion of Track Images
+                    </label><br>
+                    <label>
+                        <input type="radio" name="thumbnailData" value="titles_artists">
+                        Craft Design from Titles & Artists
+                    </label><br>
+                </div>
+                <button id="btn_generate_thumbnail">Generate a new thumbnail</button>
+                <!-- Loading Widget -->
+                <div id="loading_widget_generation" class="loading-widget">
+                    <div class="charging-bar"></div>
+                    <p>Generating Thumbnail...</p>
+                </div>
+                <!-- Success Message -->
+                <div id="success_message_generation" class="success-message" style="display:none;">
+                    <p>Thumbnail successfully generated! (Scroll down to discover your creation)</p>
+                </div>
+            </div><br>
+            <div id="post_generation" class="block1-thumbnail" style="display:none;">
+                <h2>Preview of your custom playlist thumbnail</h2>
+                <div id="generated_thumbnail">
+                    <img id="generated_image" src="" alt="Generated Image">
+                    <p id="generation_message">Love it? Save it as your playlist thumbnail in one click!</p>
+                    <button id="btn_push_to_spotify">Save as Playlist Thumbnail</button>
+                     <!-- Loading Widget -->
+                    <div id="loading_widget_upload" class="loading-widget">
+                        <div class="charging-bar"></div>
+                        <p>Uploading Thumbnail to Spotify...</p>
+                    </div>
+                    <!-- Success Message -->
+                    <div id="success_message_upload" class="success-message" style="display:none;">
+                    <p>Look at your phone - your custom thumbnail is public! (It may take up to an hour to appear here though)</p>
+                </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="auth.js"></script>
+    <script src="thumbnailGenerator.js"></script>
+</body>
+</html>
