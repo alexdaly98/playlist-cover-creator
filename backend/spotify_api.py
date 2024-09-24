@@ -9,6 +9,8 @@ from config import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
 import os
 
 # Authentification avec l'API Spotify
+for key, value in os.environ.items():
+    print(f'{key}: {value}')
 print(f'Before inline {SPOTIFY_CLIENT_ID}')
 SPOTIFY_CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID")
 print(f'After inline {SPOTIFY_CLIENT_ID}')
