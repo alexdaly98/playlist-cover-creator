@@ -161,6 +161,7 @@ button:hover {
 
 .summary .name {
     font-weight: bold;
+    padding-right: 20px;
 }
 
 .summary .track_count {
