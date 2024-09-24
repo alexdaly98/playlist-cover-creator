@@ -6,8 +6,11 @@ from io import BytesIO
 from PIL import Image
 import requests
 from config import SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET
+import os
 
 # Authentification avec l'API Spotify
+print(f'Before inline {SPOTIFY_CLIENT_ID}')
+SPOTIFY_CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID")
 auth_manager = SpotifyClientCredentials(client_id=SPOTIFY_CLIENT_ID, client_secret=SPOTIFY_CLIENT_SECRET)
 sp = spotipy.Spotify(auth_manager=auth_manager)
 
