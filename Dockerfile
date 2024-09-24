@@ -1,5 +1,5 @@
 # Use the official Python image
-FROM python:3.10.9
+FROM python:3.10-bullseye
 
 # Set the working directory
 WORKDIR /app
@@ -17,4 +17,4 @@ COPY . .
 EXPOSE 8080
 
 # Define the command to run your app
-CMD ["python", "app.py"]
+CMD ["python3", "app.py"]
