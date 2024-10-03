@@ -1,5 +1,15 @@
 
-document.addEventListener('DOMContentLoaded', populatePlaylistData);
+document.addEventListener('DOMContentLoaded', function() {
+    populatePlaylistData();
+
+    const generatedImage = document.getElementById('generated_image');
+    const imageSrc = sessionStorage.getItem('generated_image');
+
+    if (imageSrc) {
+        generatedImage.src = imageSrc;
+        document.getElementById('post_generation').style.display = 'block';
+    }
+});
 
 
 function populatePlaylistData() {
@@ -104,6 +114,7 @@ function generateThumbnail(creation_method) {
     // // Use the simulated response data
     // const generatedImage = document.getElementById('generated_image');
     // generatedImage.src = simulatedResponse.image_url;
+    // sessionStorage.setItem('generated_image', generatedImage.src);
     // generatedImage.style.display = 'block';
     // document.getElementById('btn_push_to_spotify').style.display = 'block';
     // document.getElementById('post_generation').style.display = 'block';
@@ -131,8 +142,8 @@ function generateThumbnail(creation_method) {
             if (data && data.image_url) {  // Ensure image_url is present in JSON response
                 const generatedImage = document.getElementById('generated_image');
                 generatedImage.src = data.image_url;
-                generatedImage.style.display = 'block';
                 document.getElementById('btn_push_to_spotify').style.display = 'block';
+                sessionStorage.setItem('generated_image', generatedImage.src);
             } else {
                 console.error('Invalid data format received');
             }
