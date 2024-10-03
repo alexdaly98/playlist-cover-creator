@@ -184,6 +184,28 @@ button:hover {
     margin-bottom: 20px;
 }
 
+.mood-atmosphere {
+    margin-bottom: 40px;
+    margin-top: 40px;
+    font-weight: bold;
+}
+
+#mood {
+    width: 100%; /* Make it full width */
+    max-width: 500px; /* You can control the max width */
+    padding: 10px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.3s ease;
+}
+
+#mood:focus {
+    border-color: #007BFF; /* Blue border on focus */
+    outline: none; /* Remove default focus outline */
+}
+
 #container-thumbnail {
     max-width: 100%;
 }

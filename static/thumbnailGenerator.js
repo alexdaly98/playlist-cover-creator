@@ -84,6 +84,8 @@ function generateThumbnail(creation_method) {
         title: checkbox.getAttribute('data-title')
     }));
 
+    const mood = document.getElementById('mood').value.trim();
+
     if (selectedTracks.length === 0) {
         alert('Please select at least one track.');
         return;
@@ -117,7 +119,7 @@ function generateThumbnail(creation_method) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ tracks: selectedTracks })
+        body: JSON.stringify({ tracks: selectedTracks, mood: mood })
     })
         .then(response => {
             if (!response.ok) {

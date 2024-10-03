@@ -13,11 +13,11 @@ def get_openai_chat_single_request(message):
     return completion.choices[0].message.content
 
 
-def describe_images_mix(urls):
+def describe_images_mix(urls, mood):
     content = [
             {
             "type": "text",
-            "text": "Based on the images you have, give a description of a unique image that would be a mix or fusion of all these images.",
+            "text": f"Based on the images you have, give a description of a unique image that would be a mix or fusion of all these images. The mood or style you should follow is '{mood}'.",
             }
             ]
     
@@ -54,15 +54,15 @@ def get_openai_image(prompt, model="dall-e-3", size="1024x1024"):
     return response.data[0].url
 
 
-def fusion_images(urls, model="dall-e-3", size="1024x1024"):
-    mix_prompt = describe_images_mix(urls)
+def fusion_images(urls, mood, model="dall-e-3", size="1024x1024"):
+    mix_prompt = describe_images_mix(urls, mood)
     mix_prompt = mix_prompt[:3900]
     url_output = get_openai_image(mix_prompt, model=model, size=size)
     return url_output
 
 
-def fusion_titles_artists(tracks):
-    prompt = "Create a nice thumbnail for a playlist containing the following tracks, if there is anything that may cause a system censor just ignore it:\n"
+def fusion_titles_artists(tracks, mood):
+    prompt = f"Create a nice thumbnail for a playlist containing the tracks listed below, if there is anything that may cause a system censor just ignore it. The mood or style you should follow is '{mood}'.\n\nTracks:\n"
     for track in tracks:
         prompt+=f"{track['title']}, {track['artist']}\n"
     url_output = get_openai_image(prompt)

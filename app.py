@@ -23,12 +23,13 @@ def generate_thumbnail(creation_method):
     # Parse JSON request body
     data = request.get_json()
     tracks = data.get('tracks', [])
+    mood = data.get('mood', '')
     if creation_method == 'track_thumbnails':
         # Extract image URLs from the data
         image_urls = [track['image_url'] for track in tracks]
-        url_output = openai_utils.fusion_images(image_urls)
+        url_output = openai_utils.fusion_images(image_urls, mood)
     elif creation_method == 'titles_artists':
-        url_output = openai_utils.fusion_titles_artists(tracks)
+        url_output = openai_utils.fusion_titles_artists(tracks, mood)
     else:
         jsonify({'error': 'Creation method not permitted'}), 400
 
