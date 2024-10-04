@@ -1,0 +1,94 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+}
+
+header {
+    background-color: #1db954;
+    padding: 60px 20px;
+    text-align: center;
+    color: white;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
+}
+
+p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+}
+
+.create-btn {
+    background-color: white;
+    color: #1db954;
+    padding: 15px 25px;
+    font-size: 1.1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.create-btn:hover {
+    background-color: #f4f4f9;
+}
+
+.examples {
+    padding: 40px 20px;
+    text-align: center;
+    background-color: #fff;
+}
+
+.examples h2 {
+    font-size: 2rem;
+    margin-bottom: 30px;
+}
+
+.cover-example {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.track-img, .output-img {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 0 10px;
+}
+
+.arrow {
+    font-size: 2rem;
+    color: #333;
+}
+
+.cover-example p {
+    font-weight: bold;
+    margin-left: 15px;
+    color: #1db954;
+}
+
+footer {
+    padding: 20px;
+    text-align: center;
+    background-color: #f4f4f9;
+    font-size: 0.9rem;
+    color: #555;
+}

@@ -60,10 +60,14 @@ def upload_playlist_image():
 
 # Route for the main page
 @app.route('/')
-def index():
-    return render_template('index.html')
+def home():
+    return render_template('home.html')
 
-# Route for the thumbnail generator
+@app.route('/playlist-explorer')
+def playlist_explorer():
+    return render_template('playlistExplorer.html')
+
+# Route for the thumbnail generatorc
 @app.route('/thumbnail-generator')
 def thumbnail_generator():
     return render_template('thumbnailGenerator.html')
