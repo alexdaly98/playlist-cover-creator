@@ -55,19 +55,19 @@ p {
 
 .examples h2 {
     font-size: 2rem;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 }
 
 .cover-example {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 30px;
+    margin-bottom: 50px;
 }
 
 .track-img, .output-img {
-    width: 160px;
-    height: 160px;
+    width: 200px;
+    height: 200px;
     object-fit: cover;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
