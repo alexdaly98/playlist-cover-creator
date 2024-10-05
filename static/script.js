@@ -39,13 +39,13 @@ function getPlaylists() {
                 playlistButtonsDiv.className = 'buttons_div';
 
                 const trackShowButton = document.createElement('button');
-                trackShowButton.textContent = "Show/Hide Tracks";
+                trackShowButton.textContent = "Show/Hide tracks";
                 trackShowButton.className = "button_tracks";
                 // Add event listener to the button
                 trackShowButton.addEventListener('click', () => showTracks(playlist.id));
 
                 const playlistSelectButton = document.createElement('button');
-                playlistSelectButton.textContent = "Select Playlist";
+                playlistSelectButton.textContent = "Select playlist";
                 playlistSelectButton.className = "button_select";
                 playlistSelectButton.addEventListener('click', () => selectPlaylist(playlist));
 
