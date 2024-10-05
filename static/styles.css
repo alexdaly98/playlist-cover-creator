@@ -148,6 +148,10 @@ button:hover {
     background-color: #313232ec;
 }
 
+.button_tracks {
+    width: 100%;
+}
+
 .summary {
     display: flex;
     align-items: center;
