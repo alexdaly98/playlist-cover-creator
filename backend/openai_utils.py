@@ -14,10 +14,13 @@ def get_openai_chat_single_request(message):
 
 
 def describe_images_mix(urls, mood):
+    prompt = "Based on the images you have, give a description of a unique image that would be a mix or fusion of all these images."
+    if mood:
+        prompt+=f"The mood or style you should follow is '{mood}'."
     content = [
             {
             "type": "text",
-            "text": f"Based on the images you have, give a description of a unique image that would be a mix or fusion of all these images. The mood or style you should follow is '{mood}'.",
+            "text": prompt,
             }
             ]
     
@@ -62,7 +65,10 @@ def fusion_images(urls, mood, model="dall-e-3", size="1024x1024"):
 
 
 def fusion_titles_artists(tracks, mood):
-    prompt = f"Create a nice thumbnail for a playlist containing the tracks listed below, if there is anything that may cause a system censor just ignore it. The mood or style you should follow is '{mood}'.\n\nTracks:\n"
+    prompt = f"Create a nice thumbnail for a playlist containing the tracks listed below. Make one image that is a fusion of all the vibes, not a concatenation of several pictures. If there is anything that may cause a system censor just ignore it."
+    if mood:
+        prompt+=f"The mood or style you should follow is '{mood}'."
+    prompt+="\n\nTracks:\n"
     for track in tracks:
         prompt+=f"{track['title']}, {track['artist']}\n"
     url_output = get_openai_image(prompt)
