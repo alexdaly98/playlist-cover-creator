@@ -2,7 +2,13 @@
 function getPlaylists() {
     const userId = document.getElementById('user_id_input').value;
     fetch(`playlists/${userId}`)
-        .then(response => response.json())
+        .then(response => {
+            if (!response.ok) {
+                // If response is not ok, throw an error
+                alert('Failed to fetch playlists. Please check the User ID and try again.');
+            }
+            return response.json();
+        })
         .then(playlists => {
             const playlistsList = document.getElementById('playlists_list');
             playlistsList.innerHTML = ''; // Clear the previous results
