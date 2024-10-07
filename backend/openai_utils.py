@@ -13,10 +13,12 @@ def get_openai_chat_single_request(message):
     return completion.choices[0].message.content
 
 
-def describe_images_mix(urls, mood):
+def describe_images_mix(urls, mood, playlist_title):
     prompt = "Based on the images you have, give a description of a unique image that would be a mix or fusion of all these images."
     if mood:
-        prompt+=f"The mood or style you should follow is '{mood}'."
+        prompt+=f"The mood or style of the image is '{mood}'."
+    if playlist_title:
+        prompt+=f"Use the following title as a base for the vibe of the image: {playlist_title}."
     content = [
             {
             "type": "text",
@@ -57,17 +59,20 @@ def get_openai_image(prompt, model="dall-e-3", size="1024x1024"):
     return response.data[0].url
 
 
-def fusion_images(urls, mood, model="dall-e-3", size="1024x1024"):
-    mix_prompt = describe_images_mix(urls, mood)
+def fusion_images(urls, mood, playlist_title, model="dall-e-3", size="1024x1024"):
+    mix_prompt = f"Create a nice thumbnail for a playlist, based on the image description given below. Ensure there are no visible borders or frames around the image; it should seamlessly fill the entire space. If there is anything that may cause a system censor just ignore it.\n\n"
+    mix_prompt += describe_images_mix(urls, mood, playlist_title)
     mix_prompt = mix_prompt[:3900]
     url_output = get_openai_image(mix_prompt, model=model, size=size)
     return url_output
 
 
-def fusion_titles_artists(tracks, mood):
-    prompt = f"Create a nice thumbnail for a playlist containing the tracks listed below. Make one image that is a fusion of all the vibes, not a concatenation of several pictures. If there is anything that may cause a system censor just ignore it."
+def fusion_titles_artists(tracks, mood, playlist_title):
+    prompt = f"Create a nice thumbnail for a playlist containing the tracks listed below. Make one image that is a fusion of all the vibes, not a concatenation of several pictures. Ensure there are no visible borders or frames around the image; it should seamlessly fill the entire space. If there is anything that may cause a system censor just ignore it."
     if mood:
-        prompt+=f"The mood or style you should follow is '{mood}'."
+        prompt += f" The mood or style of the image is '{mood}'."
+    if playlist_title:
+        prompt += f" Use the following title as a base for the vibe of the image: {playlist_title}."
     prompt+="\n\nTracks:\n"
     for track in tracks:
         prompt+=f"{track['title']}, {track['artist']}\n"

@@ -54,6 +54,13 @@ body {
     text-align: center; /* Center-align text within the container */
 }
 
+.container-thumbnail-page {
+    background-color: white;
+    padding: 20px;
+    overflow-y: auto; /* Enable scrolling within the container */
+    text-align: center; /* Center-align text within the container */
+}
+
 #login_status {
     display: flex;
     align-items: center;
@@ -229,6 +236,32 @@ button:hover {
     align-items:  ˆ;
 }
 
+#buttons-select-tracks {
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+#buttons-select-tracks button {
+    flex: 1;
+    margin: 0 15px;
+    cursor: pointer;
+    background-color: #313232d5;
+}
+
+#buttons-select-tracks button:hover {
+    background-color: #313232ec;
+}
+
+.checkbox-container {
+    margin-top: 30px;
+}
+
+.checkbox-container label {
+    margin-left: 5px;
+}
+
 .playlist-details {
     height: auto;
     width: 250px;
@@ -377,6 +410,7 @@ button:hover {
     cursor: pointer;
     outline: none;
     transition: background-color 0.2s, border-color 0.2s;
+    flex-shrink: 0;
 }
 
 /* Style for the checked state */

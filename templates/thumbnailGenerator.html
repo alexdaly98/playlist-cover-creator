@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="static/styles.css">
 </head>
 <body>
-    <div class="container">
+    <div class="container-thumbnail-page">
         <h1>Generate a Creative Cover</h1>
         <p>If you want to be able to upload your creation to your Spotify account, you need to log in here first.</p>
         <div id="login_status">
@@ -30,7 +30,14 @@
                             <p id="track_count">0 track(s)</p>
                         </div>
                     </div>
-                    <div id="tracks-list-thumbnail-page" class="tracks_list"></div>
+                    <div>
+                        <div id="buttons-select-tracks">
+                            <button class="button-track-selector" id="button-select-all">Select all</button>
+                            <button class="button-track-selector" id="button-unselect-all">Unselect all</button>
+                            <button class="button-track-selector" id="button-select-random">Select randomly</button>
+                        </div>
+                        <div id="tracks-list-thumbnail-page" class="tracks_list"></div>
+                    </div>
                 </div>
             </div>
             <br></br>
@@ -38,7 +45,7 @@
                 <h2>How would you like to generate your cover?</h2>
                 <div class="thumbnail-options">
                     <label>
-                        <input type="radio" name="thumbnailData" value="track_thumbnails">
+                        <input type="radio" name="thumbnailData" value="track_thumbnails" checked>
                         Fusion of track images
                     </label><br>
                     <label>
@@ -46,9 +53,13 @@
                         Craft design from titles & artists
                     </label><br>
                 </div>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="include-title" name="include-title">
+                    <label for="include-title">Include playlist title in the style</label>
+                </div>
                 <div class="mood-atmosphere">
                     <p>Specify mood, atmosphere or style (not mandatory)</p>
-                    <input type="text" id="mood" name="mood" placeholder="e.g., chill, serene, mystical, love">
+                    <input type="text" id="mood" name="mood" placeholder="e.g., minimalist, serene, mystical, love">
                   </div>
                 <button id="btn_generate_thumbnail">Generate a new cover</button>
                 <!-- Loading Widget -->

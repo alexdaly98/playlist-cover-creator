@@ -20,11 +20,55 @@ function populatePlaylistData() {
         document.getElementById('playlist_image').src = playlist.playlist_image;
         document.getElementById('track_count').textContent = `${playlist.track_count} track(s)`;
 
+        addSelectButtonsListeners();
         // Fetch and display tracks
         fetchTracks(playlist.id);
 
         addThumbnailGenerationListener(playlist.id);
     }
+}
+
+
+function addSelectButtonsListeners() {
+    // Get buttons
+    const buttonSelectAll = document.getElementById('button-select-all');
+    const buttonUnselectAll = document.getElementById('button-unselect-all');
+    const buttonSelectRandom = document.getElementById('button-select-random');
+
+    // Event listener to select all checkboxes
+    buttonSelectAll.addEventListener('click', () => {
+        const checkboxes = document.querySelectorAll('.track-checkbox');
+        checkboxes.forEach(checkbox => checkbox.checked = true);
+    });
+
+    // Event listener to unselect all checkboxes
+    buttonUnselectAll.addEventListener('click', () => {
+        const checkboxes = document.querySelectorAll('.track-checkbox');
+        checkboxes.forEach(checkbox => checkbox.checked = false);
+    });
+
+    // Event listener to select random checkboxes
+    buttonSelectRandom.addEventListener('click', () => {
+        const checkboxes = Array.from(document.querySelectorAll('.track-checkbox'));
+        // Unselect all first
+        checkboxes.forEach(checkbox => checkbox.checked = false);
+
+        // Select random 3 checkboxes (or less if fewer checkboxes exist)
+        let numberOfCheckboxesToSelect = Math.min(3, checkboxes.length);
+        const selectedCheckboxes = [];
+
+        while (selectedCheckboxes.length < numberOfCheckboxesToSelect) {
+            const randomIndex = Math.floor(Math.random() * checkboxes.length);
+            const checkbox = checkboxes[randomIndex];
+
+            // Ensure no duplicates in selection
+            if (!selectedCheckboxes.includes(checkbox)) {
+                checkbox.checked = true;
+                selectedCheckboxes.push(checkbox);
+            }
+        }
+    });
+
 }
 
 function fetchTracks(playlistId) {
@@ -95,6 +139,17 @@ function generateThumbnail(creation_method) {
     }));
 
     const mood = document.getElementById('mood').value.trim();
+    const includeTitle = document.getElementById('include-title').checked;  // Check if the title checkbox is selected
+
+    let requestBody = { 
+        tracks: selectedTracks, 
+        mood: mood
+    };
+
+    if (includeTitle) {
+        const playlistTitle = document.getElementById('playlist_name').textContent.trim(); // Get the playlist title
+        requestBody.playlist_title = playlistTitle; // Add playlist title to the request body if includeTitle is true
+    }
 
     if (selectedTracks.length === 0) {
         alert('Please select at least one track.');
@@ -130,7 +185,7 @@ function generateThumbnail(creation_method) {
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ tracks: selectedTracks, mood: mood })
+        body: JSON.stringify(requestBody)
     })
         .then(response => {
             if (!response.ok) {
