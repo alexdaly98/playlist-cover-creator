@@ -1,6 +1,8 @@
+import { redirectUri } from './config.js';
+
+
 document.addEventListener('DOMContentLoaded', async () => {
     document.getElementById('btn_login').addEventListener('click', initiateSpotifyAuth);
-    console.log(1)
     // Check if the user is already logged in
     const accessToken = sessionStorage.getItem('access_token');
     if (accessToken) {
@@ -49,6 +51,10 @@ async function fetchUserProfile() {
         });
 
         if (!response.ok) {
+            alert(
+                "You are not authorized. You can create playlist covers but you won't be able to upload them to Spotify here.\n\n" +
+                "Send an email to ajmdaly@gmail.com (with the email your Spotify account is related to) to ask for permission."
+              );
             throw new Error('Failed to fetch user profile');
         }
 
@@ -95,8 +101,6 @@ const base64encode = (input) => {
 
 // Request User Authorization
 const clientId = '6b28d044e2544b87a3d954a8fe6fdccc';  // Replace with your Spotify app client ID
-const redirectUri = 'https://playlist-cover-creator-888428643041.europe-west9.run.app/thumbnail-generator';  // Replace with your app's redirect URI
-// const redirectUri = 'http://127.0.0.1:8080/thumbnail-generator';  // Replace with your app's redirect URI
 const scope = 'ugc-image-upload playlist-modify-public playlist-modify-private';
 
 const initiateSpotifyAuth = async () => {
@@ -148,13 +152,6 @@ const getToken = async code => {
     
     const url = "https://accounts.spotify.com/api/token";
     const body = await fetch(url, payload);
-  
-    if (!body.ok) {
-      alert(
-        "You are not authorized. You can create playlist covers but you won't be able to upload them to Spotify here.\n\n" +
-        "Send an email to ajmdaly@gmail.com (with the email your Spotify account is related to) to ask for permission."
-      );
-    }
   
     const response = await body.json();
     sessionStorage.setItem('access_token', response.access_token);
