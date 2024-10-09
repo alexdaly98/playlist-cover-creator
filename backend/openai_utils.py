@@ -67,16 +67,25 @@ def fusion_images(urls, mood, playlist_title, model="dall-e-3", size="1024x1024"
     return url_output
 
 
-def fusion_titles_artists(tracks, mood, playlist_title):
-    prompt = f"Create a nice thumbnail for a playlist containing the tracks listed below. Make one image that is a fusion of all the vibes, not a concatenation of several pictures. Ensure there are no visible borders or frames around the image; it should seamlessly fill the entire space. If there is anything that may cause a system censor just ignore it."
+def describe_titles_artists_mix(tracks, mood, playlist_title):
+    prompt = "Based on the tracks titles and artists you have below, give a description of a unique image that would be a mix or fusion of all these images."
     if mood:
-        prompt += f" The mood or style of the image is '{mood}'."
+        prompt+=f"The mood or style of the image is '{mood}'."
     if playlist_title:
-        prompt += f" Use the following title as a base for the vibe of the image: {playlist_title}."
+        prompt+=f"Use the following title as a base for the vibe of the image: {playlist_title}."
     prompt+="\n\nTracks:\n"
     for track in tracks:
         prompt+=f"{track['title']}, {track['artist']}\n"
-    url_output = get_openai_image(prompt)
+
+    thumbnail_description = get_openai_chat_single_request(prompt)
+    return thumbnail_description
+
+
+def fusion_titles_artists(tracks, mood, playlist_title, model="dall-e-3", size="1024x1024"):
+    mix_prompt = f"Create a nice thumbnail for a playlist, based on the image description given below. Ensure there are no visible borders or frames around the image; it should seamlessly fill the entire space. If there is anything that may cause a system censor just ignore it. Do not write words in the image\n\n"
+    mix_prompt += describe_titles_artists_mix(tracks, mood, playlist_title)
+    mix_prompt = mix_prompt[:3900]
+    url_output = get_openai_image(mix_prompt, model=model, size=size)
     return url_output
 
 
