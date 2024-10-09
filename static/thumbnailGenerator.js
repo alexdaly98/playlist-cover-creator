@@ -5,9 +5,10 @@ document.addEventListener('DOMContentLoaded', function() {
     const generatedImage = document.getElementById('generated_image');
     const imageSrc = sessionStorage.getItem('generated_image');
 
-    if (imageSrc) {
+    if (imageSrc != 'null' && imageSrc) {
         generatedImage.src = imageSrc;
         document.getElementById('post_generation').style.display = 'block';
+        console.log('running')
     }
 });
 

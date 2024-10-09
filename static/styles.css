@@ -50,8 +50,10 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     min-width: 500px; /* Set a max-width for larger screens */
     max-width: 1000px; /* Set a max-width for larger screens */
+    overflow: visible;
     overflow-y: auto; /* Enable scrolling within the container */
     text-align: center; /* Center-align text within the container */
+    z-index: 1;
 }
 
 .container-thumbnail-page {
@@ -97,13 +99,66 @@ body {
     margin-bottom: 20px; /* Add some space below the input-container */
 }
 
-#user_id_input {
-    padding: 10px; /* Restore previous padding */
-    border-radius: 6px; /* Rounded corners for the input */
-    border: 1px solid #ccc; /* Restore previous border style */
-    width: 100%; /* Make the input take full width of its container */
-    max-width: 300px; /* Optional: Set a maximum width for the input box */
+/* Wrapper for input and icon to position them together */
+.input-wrapper {
+    position: relative;
+    display: inline-block;
+    width: 100%;
+    max-width: 300px; /* Keep the same max-width for the input */
 }
+
+/* Original styles for the input box */
+#user_id_input {
+    padding: 10px; /* Maintain original padding */
+    padding-right: 40px; /* Add space for the icon */
+    border-radius: 6px; /* Rounded corners */
+    border: 1px solid #ccc; /* Original border */
+    width: 100%; /* Full width of the wrapper */
+    box-sizing: border-box; /* Ensure padding is included in the width */
+}
+
+/* Minimalist styles for the question mark icon inside the input box */
+.helper-icon {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: white;
+    color: rgb(154, 154, 154);
+    border: 1px solid rgb(154, 154, 154);
+    border-radius: 50%;
+    width: 16px;
+    height: 16px;
+    text-align: center;
+    font-size: 10px;
+    line-height: 16px;
+    cursor: pointer;
+    font-family: Arial, sans-serif;
+}
+
+/* Styles for the helper popup */
+.helper-popup {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 400px;
+    top: 30px; /* Adjust as needed */
+    left: 20px; /* Adjust as needed */
+    z-index: 1000; /* Ensure this is higher than the container */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 14px;
+}
+
+
+
+/* Display the popup on hover */
+#helper-icon:hover + .helper-popup {
+    display: block;
+}
+
+
 
 button {
     padding: 10px 20px; /* Add padding to the button */
@@ -369,33 +424,36 @@ button:hover {
 .charging-bar {
     width: 100%;
     height: 10px;
-    background-color: #444;
+    background-color: #eee; /* Light background for the gauge */
     margin-bottom: 10px;
     overflow: hidden;
     border-radius: 5px;
     position: relative;
 }
 
+/* Gauge Effect */
 .charging-bar::before {
     content: '';
     position: absolute;
     top: 0;
-    left: -100%;
-    width: 100%;
+    left: 0; /* Start from the left */
+    width: 100%; /* Width of the gauge */
     height: 100%;
     background: linear-gradient(to right, #4caf50, #8bc34a);
-    animation: charging 20s infinite;
+    transform-origin: left; /* Set transform origin to the left */
+    animation: charging 25s linear forwards; /* Change duration to 25s */
 }
 
 /* Animation for the charging bar */
 @keyframes charging {
     0% {
-        left: -100%;
+        transform: scaleX(0); /* Start from 0 width */
     }
     100% {
-        left: 100%;
+        transform: scaleX(1); /* Expand to full width */
     }
 }
+
 
 /* Hide the default checkbox */
 .track-checkbox {
