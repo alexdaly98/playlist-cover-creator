@@ -17,8 +17,8 @@ function populatePlaylistData() {
     const playlist = JSON.parse(sessionStorage.getItem('selectedPlaylist'));
 
     if (playlist) {
-        document.getElementById('playlist_name').textContent = playlist.playlist_name;
-        document.getElementById('playlist_image').src = playlist.playlist_image;
+        document.getElementById('playlist_name').textContent = playlist.name;
+        document.getElementById('playlist_image').src = playlist.image_url;
         document.getElementById('track_count').textContent = `${playlist.track_count} track(s)`;
 
         addSelectButtonsListeners();
@@ -85,12 +85,13 @@ function fetchTracks(playlistId) {
                 trackDiv.id = 'track-thumbnail';
                 trackDiv.innerHTML = `
                     <input type="checkbox" class="track-checkbox" 
+                    data-id="${track.id}" 
                     data-image-url="${track.image_url}" 
                     data-artist="${track.artist}" 
-                    data-title="${track.track_name}">
-                    <img src="${track.image_url}" alt="${track.track_name}">
+                    data-title="${track.name}">
+                    <img src="${track.image_url}" alt="${track.name}">
                     <div>
-                        <div class="track_name">${track.track_name}</div>
+                        <div class="track_name">${track.name}</div>
                         <div class="track_artist">${track.artist}</div>
                     </div>
                 `;
@@ -134,23 +135,27 @@ function addThumbnailGenerationListener(playlistId) {
 function generateThumbnail(creation_method) {
     const checkboxes = document.querySelectorAll('.track-checkbox:checked');
     const selectedTracks = Array.from(checkboxes).map(checkbox => ({
+        id: checkbox.getAttribute('data-id'),
         image_url: checkbox.getAttribute('data-image-url'),
         artist: checkbox.getAttribute('data-artist'),
         title: checkbox.getAttribute('data-title')
     }));
 
     const mood = document.getElementById('mood').value.trim();
-    const includeTitle = document.getElementById('include-title').checked;  // Check if the title checkbox is selected
+    const includeTitle = document.getElementById('include-title').checked;
 
-    let requestBody = { 
+    // Retrieve the full selected playlist overview object from sessionStorage
+    const selectedPlaylist = JSON.parse(sessionStorage.getItem('selectedPlaylist'));
+    
+    const userIdSearched = sessionStorage.getItem('userIdSearched');
+    
+    let requestBody = {
         tracks: selectedTracks, 
-        mood: mood
+        mood: mood,
+        selected_playlist: selectedPlaylist,  
+        include_title: includeTitle,           // Flag for whether to include the title in prompt
+        user_id_searched: userIdSearched
     };
-
-    if (includeTitle) {
-        const playlistTitle = document.getElementById('playlist_name').textContent.trim(); // Get the playlist title
-        requestBody.playlist_title = playlistTitle; // Add playlist title to the request body if includeTitle is true
-    }
 
     if (selectedTracks.length === 0) {
         alert('Please select at least one track.');
@@ -215,6 +220,7 @@ function generateThumbnail(creation_method) {
 
 async function uploadPlaylistImageFromUrl(playlistId, imageUrl, accessToken) {
     document.getElementById('loading_widget_upload').style.display = 'block';
+    const userIdSearched = sessionStorage.getItem('userIdSearched');
     try {
         const response = await fetch('upload-playlist-image', {
             method: 'POST',
@@ -224,7 +230,8 @@ async function uploadPlaylistImageFromUrl(playlistId, imageUrl, accessToken) {
             body: JSON.stringify({
                 playlist_id: playlistId,
                 image_url: imageUrl,
-                access_token: accessToken
+                access_token: accessToken,
+                user_id_searched: userIdSearched
             })
         });
 
@@ -232,10 +239,10 @@ async function uploadPlaylistImageFromUrl(playlistId, imageUrl, accessToken) {
         if (response.ok) {
             document.getElementById('success_message_upload').style.display = 'block';
             console.log(data.message);
-            // Update sessionStorage with the new image URL
+            // Update sessionStorage with the new image URL (because Spotify API doesn't refresh this data instantly, it takes up to an hour...)
             let playlist = JSON.parse(sessionStorage.getItem('selectedPlaylist'));
             if (playlist) {
-                playlist.playlist_image = imageUrl;
+                playlist.image_url = imageUrl;
                 sessionStorage.setItem('selectedPlaylist', JSON.stringify(playlist));
             }
         } else {

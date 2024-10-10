@@ -6,7 +6,7 @@
     <title>Spotify Playlists</title>
     <link rel="stylesheet" href="static/styles.css">
     <script>
-        // Set generated_image to null when the page is shown
+        // Set generated_image to null when the page is shown so we reset generations when user goes back to this page
         window.addEventListener('pageshow', function(event) {
             // Check if the page is loaded from the cache
             if (event.persisted || (window.performance && window.performance.navigation.type === 2)) {

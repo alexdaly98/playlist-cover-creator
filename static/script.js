@@ -10,6 +10,7 @@ function getPlaylists() {
             return response.json();
         })
         .then(playlists => {
+            sessionStorage.setItem('userIdSearched', userId);
             const playlistsList = document.getElementById('playlists_list');
             playlistsList.innerHTML = ''; // Clear the previous results
 
@@ -23,13 +24,13 @@ function getPlaylists() {
                 playlistSummaryDiv.className = 'summary';
 
                 const playlistImage = document.createElement('img');
-                playlistImage.src = playlist.playlist_image;
-                playlistImage.alt = playlist.playlist_name;
+                playlistImage.src = playlist.image_url;
+                playlistImage.alt = playlist.name;
                 playlistImage.width = 100;
 
                 const nameDiv = document.createElement('div');
                 nameDiv.className = 'name';
-                nameDiv.textContent = playlist.playlist_name;
+                nameDiv.textContent = playlist.name;
 
                 const trackCountDiv = document.createElement('div');
                 trackCountDiv.className = 'track_count';
@@ -94,9 +95,9 @@ function showTracks(playlistId) {
                 const trackDiv = document.createElement('div');
                 trackDiv.className = 'track';
                 trackDiv.innerHTML = `
-                    <img src="${track.image_url}" alt="${track.track_name}">
+                    <img src="${track.image_url}" alt="${track.name}">
                     <div>
-                        <div class="track_name">${track.track_name}</div>
+                        <div class="track_name">${track.name}</div>
                         <div class="track_artist">${track.artist}</div>
                     </div>
                 `;

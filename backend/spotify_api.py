@@ -27,8 +27,8 @@ def get_playlists(user_id):
     # Simplify the data structure for the frontend
     simplified_playlists = [{
         'id': p['id'],  # Include the playlist ID for fetching tracks
-        'playlist_image': p['images'][0]['url'] if p['images'] else '',
-        'playlist_name': p['name'],
+        'image_url': p['images'][0]['url'] if p['images'] else '',
+        'name': p['name'],
         'track_count': p['tracks']['total']
     } for p in playlists]
 
@@ -46,7 +46,8 @@ def get_playlist_tracks(playlist_id):
 
     # Simplify the data structure for the frontend
     simplified_tracks = [{
-        'track_name': t['track']['name'],
+        'id': t['track']['id'],
+        'name': t['track']['name'],
         'artist': ', '.join([artist['name'] for artist in t['track']['artists']]),
         'image_url': t['track']['album']['images'][0]['url'] if t['track']['album']['images'] else ''
     } for t in tracks]

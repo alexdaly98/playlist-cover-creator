@@ -1,4 +1,4 @@
-from backend import spotify_api, openai_utils
+from backend import spotify_api, openai_utils, gcp_utils
 from flask import Flask, jsonify, request, render_template
 from flask_cors import CORS
 
@@ -24,7 +24,12 @@ def generate_thumbnail(creation_method):
     data = request.get_json()
     tracks = data.get('tracks', [])
     mood = data.get('mood', '')
-    playlist_title = data.get('playlist_title', '')
+    playlist_data = data.get('selected_playlist', {})
+    include_title = data.get('include_title', False)
+
+    playlist_title = ''
+    if include_title:
+        playlist_title = playlist_data['name']
 
     if creation_method == 'track_thumbnails':
         # Extract image URLs from the data
@@ -34,6 +39,8 @@ def generate_thumbnail(creation_method):
         url_output = openai_utils.fusion_titles_artists(tracks, mood, playlist_title)
     else:
         jsonify({'error': 'Creation method not permitted'}), 400
+    
+    gcp_utils.log_image_creation(url_output, data)
 
     return jsonify({"image_url": url_output})
 
@@ -54,6 +61,7 @@ def upload_playlist_image():
     if not upload_response.ok:
         upload_response = spotify_api.upload_playlist_thumbnail(playlist_id, image_url, access_token, max_size_kb=45)
     if upload_response.ok:
+        gcp_utils.log_image_upload(image_url, data)
         return jsonify({'message': 'Image uploaded successfully!'}), 200
     else:
         return jsonify({'error': 'Failed to upload image'}), upload_response.status_code

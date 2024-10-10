@@ -444,6 +444,10 @@ button:hover {
     animation: charging 25s linear forwards; /* Change duration to 25s */
 }
 
+#charging-bar-upload::before {
+    animation: charging 7s linear forwards;
+}
+
 /* Animation for the charging bar */
 @keyframes charging {
     0% {
