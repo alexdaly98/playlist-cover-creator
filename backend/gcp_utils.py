@@ -3,8 +3,6 @@ import os, json
 from datetime import datetime
 import pytz
 import requests
-#To load GOOGLE_APPLICATION_CREDENTIALS env variable
-import config
 
 bucket_name = "logs-playlist-cover-creator"
 
