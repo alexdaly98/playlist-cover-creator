@@ -49,19 +49,18 @@ body {
     border-radius: 12px; /* Slightly more rounded corners for the container */
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     min-width: 500px; /* Set a max-width for larger screens */
-    max-width: 1000px; /* Set a max-width for larger screens */
+    max-width: 1100px; /* Set a max-width for larger screens */
     overflow: visible;
     overflow-y: auto; /* Enable scrolling within the container */
     text-align: center; /* Center-align text within the container */
     z-index: 1;
 }
 
-.container-thumbnail-page {
-    background-color: white;
-    padding: 20px;
-    overflow-y: auto; /* Enable scrolling within the container */
-    text-align: center; /* Center-align text within the container */
+#container-playlist-explorer {
+    max-width: 750px;
 }
+
+
 
 #login_status {
     display: flex;
@@ -177,6 +176,7 @@ button:hover {
 #playlists_list {
     margin-top: 20px;
     padding:10px;
+    min-width: 650px;
     max-height: 70vh; /* Ensure the playlist list has a max height */
     overflow-y: auto; /* Enable scrolling for the playlist list */
 }
@@ -342,6 +342,7 @@ button:hover {
     max-height: 500px; /* Ensure the tracks list box is the same height as the image */
     overflow-y: auto; /* Make the tracks list scrollable */
     max-width: 100%; /* This might be overridden, so ensure it's allowed to grow */
+    min-width: 700px;
     background-color: #acacac; /* Background color for the track list */
     padding: 10px; /* Padding inside the track list box */
     border-radius: 6px; /* Rounded corners */
