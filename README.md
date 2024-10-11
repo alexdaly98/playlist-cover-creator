@@ -63,6 +63,8 @@ Once you have created your app, you will have access to the app credentials.<br>
 
 To allow other users to log in to their spotify account within the project app you must add them in Settings>User Management.
 
+#### Google Credentials
+GOOGLE_APPLICATION_CREDENTIALS is not mandatory (cf. Logging and Storage)
 
 ### Step 4: Run the Flask App locally:
 
