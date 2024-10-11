@@ -135,29 +135,6 @@ body {
     font-family: Arial, sans-serif;
 }
 
-/* Styles for the helper popup */
-.helper-popup {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    width: 400px;
-    top: 30px; /* Adjust as needed */
-    left: 20px; /* Adjust as needed */
-    z-index: 1000; /* Ensure this is higher than the container */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    font-size: 14px;
-}
-
-
-
-/* Display the popup on hover */
-#helper-icon:hover + .helper-popup {
-    display: block;
-}
-
-
 
 button {
     padding: 10px 20px; /* Add padding to the button */

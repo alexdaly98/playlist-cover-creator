@@ -1,3 +1,13 @@
+document.addEventListener('DOMContentLoaded', function() {
+    document.getElementById('helper-icon').addEventListener('click', function() {
+      // Replace with your desired YouTube video URL
+      const youtubeUrl = 'https://www.youtube.com/watch?v=6mJkfQPl3lE';
+      
+      // Open the YouTube video in a new tab
+      window.open(youtubeUrl, '_blank');
+    });
+  });
+
 // Fetch and display the user's playlists based on the entered User ID
 function getPlaylists() {
     const userId = document.getElementById('user_id_input').value;
