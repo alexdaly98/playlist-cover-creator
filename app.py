@@ -40,7 +40,7 @@ def generate_thumbnail(creation_method):
     else:
         jsonify({'error': 'Creation method not permitted'}), 400
     
-    gcp_utils.log_image_creation(url_output, data)
+    gcp_utils.log_image(url_output, data, log_type='creation')
 
     return jsonify({"image_url": url_output})
 
@@ -55,13 +55,10 @@ def upload_playlist_image():
     if not playlist_id or not image_url or not access_token:
         return jsonify({'error': 'Missing parameters'}), 400
 
-    upload_response = spotify_api.upload_playlist_thumbnail(playlist_id, image_url, access_token, max_size_kb=55)
-    if not upload_response.ok:
-        upload_response = spotify_api.upload_playlist_thumbnail(playlist_id, image_url, access_token, max_size_kb=50)
-    if not upload_response.ok:
-        upload_response = spotify_api.upload_playlist_thumbnail(playlist_id, image_url, access_token, max_size_kb=45)
+    upload_response = spotify_api.upload_playlist_thumbnail_multiple_try(playlist_id, image_url, access_token)
+    
     if upload_response.ok:
-        gcp_utils.log_image_upload(image_url, data)
+        gcp_utils.log_image(image_url, data, log_type='upload')
         return jsonify({'message': 'Image uploaded successfully!'}), 200
     else:
         return jsonify({'error': 'Failed to upload image'}), upload_response.status_code

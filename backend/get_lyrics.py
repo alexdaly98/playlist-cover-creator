@@ -1,3 +1,4 @@
+"""File for potential use of lyrics in a future feature"""
 import requests
 
 
