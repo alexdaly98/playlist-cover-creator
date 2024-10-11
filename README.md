@@ -1,6 +1,6 @@
 # Spotify Playlist Cover Creator
 
-Welcome to the Spotify Playlist Cover Creator! This project helps you design custom thumbnails for your Spotify playlists by blending track images or details (titles and artists), and then uploading them back to Spotify. It uses a Flask-based backend that integrates seamlessly with the Spotify API, OpenAI, and Google Cloud Platform (GCP) for comprehensive logging and image storage.
+Welcome to the Spotify Playlist Cover Creator! This project allows you to AI-generate custom covers for your Spotify public playlists by blending track images or details (titles and artists), and then uploading them back to Spotify. It uses a Flask-based backend that integrates seamlessly with the Spotify API, OpenAI, and Google Cloud Platform (GCP) for comprehensive logging and image storage.
 
 ## Features
 
