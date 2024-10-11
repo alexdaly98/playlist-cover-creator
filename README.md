@@ -50,9 +50,10 @@ cd your-repository-folder
   SPOTIFY_CLIENT_ID=your_spotify_client_id
   SPOTIFY_CLIENT_SECRET=your_spotify_client_secret
   OPENAI_API_KEY=your_openai_api_key
+  GOOGLE_APPLICATION_CREDENTIALS=path/to/your/service-account-key.json
   ```
 
-## Setting Up Spotify Credentials
+#### Setting Up Spotify Credentials
 
 You can create your own Spotify credentials here [https://developer.spotify.com/](https://developer.spotify.com/).<br>
 Log into the dashboard using your Spotify account.<br>
@@ -91,3 +92,19 @@ To allow other users to log in to their spotify account within the project app y
 ## Logging and Storage
 
 All events related to image generation and uploads are recorded in a GCP bucket. Each event is organized in a timestamped folder containing the generated image and relevant metadata for easy tracking and analysis.
+
+### GCP Bucket Setup
+
+If you choose **not** to set up logging, the app will still function normally without storing event data.<br>
+
+To use this feature, you must set up a GCP bucket and provide your credentials as an environment variable. Follow these steps:
+
+1. **Generate a Service Account Key:**
+   - Create a key associated with your GCP service account.
+
+2. **Update .env File:**
+   - Add the following line to your `.env` file:
+     ```plaintext
+     GOOGLE_APPLICATION_CREDENTIALS=path/to/your/service-account-key.json
+     ```
+   - Replace `path/to/your/service-account-key.json` with the actual path to your downloaded service account key.
