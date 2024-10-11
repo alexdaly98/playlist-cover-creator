@@ -52,6 +52,17 @@ cd your-repository-folder
   OPENAI_API_KEY=your_openai_api_key
   ```
 
+## Setting Up Spotify Credentials
+
+You can create your own Spotify credentials here [https://developer.spotify.com/](https://developer.spotify.com/).<br>
+Log into the dashboard using your Spotify account.<br>
+Create an app and select "Web API" for the question asking which APIs you are planning to use.<br>
+Add `http://127.0.0.1:8080/thumbnail-generator` to the "redirect URIs" section.<br>
+Once you have created your app, you will have access to the app credentials.<br><br>
+
+To allow other users to log in to their spotify account within the project app you must add them in Settings>User Management.
+
+
 ### Step 4: Run the Flask App locally:
 
 - Start the application:
