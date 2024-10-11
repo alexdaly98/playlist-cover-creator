@@ -26,8 +26,8 @@ Welcome to the Spotify Playlist Cover Creator! This project allows you to AI-gen
 
 ### Step 1: Clone the Repository:
 ```bash
-git clone https://github.com/your-repository-url.git
-cd your-repository-folder
+git clone https://github.com/alexdaly98/playlist-cover-creator.git
+cd playlist-cover-creator
 ```
 
 ### Step 2: Set Up the Environment:
