@@ -39,9 +39,13 @@ def generate_thumbnail(creation_method):
         url_output = openai_utils.fusion_titles_artists(tracks, mood, playlist_title)
     else:
         jsonify({'error': 'Creation method not permitted'}), 400
-    
-    gcp_utils.log_image(url_output, data, log_type='creation')
-
+    try:
+        gcp_utils.log_image(url_output, data, log_type='creation')
+    except Exception as e:
+        app.logger.warning(
+            'Logging and storage functionality encountered an issue: %s. '
+            'Please refer to the README for setup instructions on logging and GCP storage.', e
+        )
     return jsonify({"image_url": url_output})
 
 
@@ -58,7 +62,13 @@ def upload_playlist_image():
     upload_response = spotify_api.upload_playlist_thumbnail_multiple_try(playlist_id, image_url, access_token)
     
     if upload_response.ok:
-        gcp_utils.log_image(image_url, data, log_type='upload')
+        try:
+            gcp_utils.log_image(image_url, data, log_type='upload')
+        except Exception as e:
+            app.logger.warning(
+                'Logging and storage functionality encountered an issue: %s. '
+                'Please refer to the README for setup instructions on logging and GCP storage.', e
+            )
         return jsonify({'message': 'Image uploaded successfully!'}), 200
     else:
         return jsonify({'error': 'Failed to upload image'}), upload_response.status_code
