@@ -55,14 +55,26 @@ cd playlist-cover-creator
 
 #### Setting Up Spotify Credentials
 
-You can create your own Spotify credentials here [https://developer.spotify.com/](https://developer.spotify.com/).<br>
-Log into the dashboard using your Spotify account.<br>
-Create an app and select "Web API" for the question asking which APIs you are planning to use.<br>
-Add `http://127.0.0.1:8080/thumbnail-generator` to the "redirect URIs" section.<br>
-Once you have created your app, you will have access to the app credentials.<br><br>
+Follow these steps to configure your Spotify credentials:
 
-To allow other users to log in to their spotify account within the project app you must add them in Settings>User Management.
+1. **Create Your Spotify Credentials:**
+   - Visit the [Spotify Developer Dashboard](https://developer.spotify.com/dashboard/).
+   - Log in using your Spotify account.
+   - Create a new app and select "Web API" as the API you plan to use.
+   - In the "Redirect URIs" section, add: `http://127.0.0.1:8080/thumbnail-generator`.
+   - After creating the app, you can see your app credentials in Basic Information.
 
+2. **Allow User Login in the App:**
+   - Navigate to `Settings > User Management` in the Spotify Developer Dashboard.
+   - Add other users who require access so they can log in with their Spotify account.
+   - Note: The account that created the App is allowed by default
+
+3. **Update Redirect URI in the local code:**
+   - Modify the redirect URI in `static/config.js` by updating it to:
+     ```javascript
+     export const redirectUri = 'http://127.0.0.1:8080/thumbnail-generator';
+     ```
+     
 #### Google Credentials
 GOOGLE_APPLICATION_CREDENTIALS is not mandatory (cf. Logging and Storage)
 
@@ -75,21 +87,6 @@ GOOGLE_APPLICATION_CREDENTIALS is not mandatory (cf. Logging and Storage)
 
 - Access the app at [http://localhost:8080](http://localhost:8080).
 
-## Endpoints
-
-- **GET /playlists/**: Fetch the specified user's playlists.
-- **GET /tracks/**: Retrieve tracks from a specific playlist.
-- **POST /thumbnail/**: Generate a playlist thumbnail using track images or titles/artists.
-- **POST /upload-playlist-image**: Uploads the generated thumbnail to a specified Spotify playlist.
-- **GET /**: Main landing page (HTML).
-- **GET /playlist-explorer**: Explore your playlists (HTML).
-- **GET /thumbnail-generator**: Generate playlist thumbnails (HTML).
-
-## Usage
-
-- **Navigate to the Playlist Explorer:** Enter your Spotify user ID to browse your playlists and tracks.
-- **Generate Thumbnails:** Select a playlist and choose a thumbnail generation method—either through track images or track titles/artists.
-- **Upload to Spotify:** After generating a thumbnail, upload it directly to your Spotify playlist from the app interface.
 
 ## Logging and Storage
 
