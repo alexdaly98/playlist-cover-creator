@@ -82,7 +82,7 @@ GOOGLE_APPLICATION_CREDENTIALS is not mandatory (cf. Logging and Storage)
 
 - Start the application:
   ```bash
-  python app.py
+  python3 app.py
   ```
 
 - Access the app at [http://localhost:8080](http://localhost:8080).

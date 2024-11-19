@@ -85,13 +85,18 @@ def get_playlist_tracks(playlist_id):
         tracks.extend(results['items'])
 
     # Simplify the data structure for the frontend
-    simplified_tracks = [{
-        'id': t['track']['id'],
-        'name': t['track']['name'],
-        'artist': ', '.join([artist['name'] for artist in t['track']['artists']]),
-        'image_url': t['track']['album']['images'][0]['url'] if t['track']['album']['images'] else ''
-    } for t in tracks]
-
+    simplified_tracks = []
+    for t in tracks:
+        try:
+            simplified_track = {
+            'id': t['track']['id'],
+            'name': t['track']['name'],
+            'artist': ', '.join([artist['name'] for artist in t['track']['artists']]),
+            'image_url': t['track']['album']['images'][0]['url'] if t['track']['album']['images'] else ''
+            }
+            simplified_tracks.append(simplified_track)
+        except:
+            Warning('A track was skipped')
     return simplified_tracks
 
 
